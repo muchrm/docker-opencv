@@ -1,0 +1,14 @@
+sudo: required
+services:
+  - docker
+env:
+  global:
+    - REPO=muchrm/opencv
+  matrix:
+    - BUILD_TAG=alpine
+    - BUILD_TAG=slim
+script: cd $BUILD_TAG && docker build -t $REPO:$BUILD_TAG .
+after_success:
+  - docker tag $REPO:slim $REPO:latest
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push $REPO

@@ -5,7 +5,6 @@ env:
   global:
     - REPO=muchrm/opencv
   matrix:
-    - BUILD_TAG=alpine
     - BUILD_TAG=slim
 script: cd $BUILD_TAG && docker build -t $REPO:$BUILD_TAG .
 after_success:

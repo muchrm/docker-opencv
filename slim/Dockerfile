@@ -34,13 +34,13 @@ RUN cmake -DCMAKE_INSTALL_PREFIX=/usr/local/share/opencv  \
 RUN make && make install
 
 FROM node:8-slim
-# RUN apt-get update \
-#       && apt-get install -y --no-install-recommends \
-#       libgtk2.0-dev \
-#       libavcodec-dev \
-#       libavformat-dev \
-#       libswscale-dev \
-#       && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+      && apt-get install -y --no-install-recommends \
+      libgtk2.0-dev \
+      libavcodec-dev \
+      libavformat-dev \
+      libswscale-dev \
+      && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /usr/local/share/opencv/ /usr/local/
 RUN npm install -g --no-optional pm2 nodemon
 WORKDIR /app 
